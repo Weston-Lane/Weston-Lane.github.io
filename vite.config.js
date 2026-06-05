@@ -12,6 +12,7 @@ export default defineConfig({
       // to one another so tailored URLs can be sent to different recruiters.
       input: {
         main: resolve(__dirname, 'index.html'),
+        about: resolve(__dirname, 'about.html'),
         gamedev: resolve(__dirname, 'gamedev.html'),
         techart: resolve(__dirname, 'techart.html'),
         swe: resolve(__dirname, 'swe.html'),

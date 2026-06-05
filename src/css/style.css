@@ -120,6 +120,37 @@ a {
   letter-spacing: -0.01em;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.site-nav-list {
+  list-style: none;
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.site-nav-link {
+  display: inline-block;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 550;
+  padding: 7px 12px;
+  border-radius: 999px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.site-nav-link:hover {
+  color: var(--text-strong);
+  background: var(--accent-bg);
+}
+
 .header-role {
   color: var(--text-dim);
   font-size: 13px;

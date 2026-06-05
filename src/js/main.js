@@ -70,23 +70,48 @@ function contactList(contacts, className) {
   return list;
 }
 
-/** Header is identical on every page: name, role, contact links. */
-function renderHeader(site) {
+/** The standalone about/contact page that category pages link to. */
+const ABOUT_PAGE = { label: 'About / Contact', href: '/about.html' };
+
+/** One nav link per category, derived from site.json (data-driven). */
+function categoryLinks(site) {
+  return Object.entries(site?.categories || {}).map(([key, meta]) => ({
+    label: meta.navLabel || meta.title || key,
+    href: `/${key}.html`,
+  }));
+}
+
+/** Build the banner nav. An empty list renders nothing (leaf pages). */
+function navList(links) {
+  const list = el('ul', { class: 'site-nav-list' });
+  for (const link of links) {
+    list.append(
+      el('li', {}, el('a', { class: 'site-nav-link', href: link.href, text: link.label })),
+    );
+  }
+  return el('nav', { class: 'site-nav', 'aria-label': 'Pages' }, list);
+}
+
+/**
+ * Header: identity + (page-dependent) nav + contact links. The name is never a
+ * link, so no page can accidentally route back to the master index through it.
+ */
+function renderHeader(site, navLinks = []) {
   const mount = document.querySelector('[data-site-header]');
   if (!mount || !site) return;
-  mount.replaceChildren(
-    el(
-      'div',
-      { class: 'header-inner' },
-      el(
-        'div',
-        { class: 'header-identity' },
-        el('p', { class: 'header-name', text: site.name }),
-        site.role ? el('p', { class: 'header-role', text: site.role }) : null,
-      ),
-      contactList(site.contacts, 'header-contacts'),
-    ),
+
+  const identity = el(
+    'div',
+    { class: 'header-identity' },
+    el('p', { class: 'header-name', text: site.name }),
+    site.role ? el('p', { class: 'header-role', text: site.role }) : null,
   );
+
+  const actions = el('div', { class: 'header-actions' });
+  if (navLinks.length) actions.append(navList(navLinks));
+  actions.append(contactList(site.contacts, 'header-contacts'));
+
+  mount.replaceChildren(el('div', { class: 'header-inner' }, identity, actions));
 }
 
 function renderFooter(site) {
@@ -339,20 +364,32 @@ async function init() {
   const main = document.querySelector('main');
   if (!main) return;
 
+  const isCategory = Boolean(main.dataset.category);
   const [site, projects] = await Promise.all([
     loadJson(siteUrl, 'site.json'),
-    main.dataset.category ? loadJson(projectsUrl, 'projects.json') : Promise.resolve(null),
+    isCategory ? loadJson(projectsUrl, 'projects.json') : Promise.resolve(null),
   ]);
 
-  renderHeader(site);
+  // Navigation rules:
+  //  - home (master index): links to every section + the standalone About page.
+  //  - category pages: link only to the About page — never back to the master
+  //    and never to each other (tailored recruiter URLs stay isolated).
+  //  - about page: no nav, so it can't link back to the master either.
+  let navLinks = [];
+  if (main.dataset.page === 'home') navLinks = [...categoryLinks(site), ABOUT_PAGE];
+  else if (isCategory) navLinks = [ABOUT_PAGE];
+
+  renderHeader(site, navLinks);
   renderFooter(site);
 
-  if (main.dataset.page === 'about') {
-    renderAbout(main, site);
-  } else if (main.dataset.category) {
+  if (isCategory) {
     renderProjects(main, site, projects);
     wireAccordions(main);
     wireYouTube(main);
+  } else {
+    // Both the master index and the standalone about page show the same
+    // identity/contact content; only their nav (above) differs.
+    renderAbout(main, site);
   }
 }
 

@@ -14,14 +14,17 @@
   "categories": {
     "gamedev": {
       "title": "Game Development",
+      "navLabel": "Game Dev",
       "blurb": "Gameplay systems, prototypes, and shipped titles."
     },
     "techart": {
       "title": "Technical Art",
+      "navLabel": "Tech Art",
       "blurb": "Shaders, tools, and the bridge between art and engineering."
     },
     "swe": {
       "title": "Software Engineering",
+      "navLabel": "Software",
       "blurb": "Services, tooling, and applications built to last."
     }
   }
