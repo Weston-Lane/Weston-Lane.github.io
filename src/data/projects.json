@@ -1,0 +1,43 @@
+[
+  {
+    "id": "neon-drift",
+    "title": "Neon Drift",
+    "categories": ["gamedev"],
+    "mediaUrl": "https://www.youtube.com/embed/JhaUb1DcLB8?si=k7XvfqQHQqF_bsSH",
+    "posterUrl": "/media/neon-drift.svg",
+    "isVideo": true,
+    "groupSize": "Team of 5 — 2 engineers, 2 artists, 1 designer.",
+    "contributions": "Built the arcade driving model and drift-scoring system, implemented the boost/chain combo loop, and wrote the replay-camera system used in trailers.",
+    "summary": "A neon-soaked arcade racer about chaining perfect drifts. Built in 12 weeks as a vertical slice, with a focus on game-feel and a forgiving-but-deep scoring system."
+  },
+  {
+    "id": "shader-toolkit",
+    "title": "Procedural Shader Toolkit",
+    "categories": ["techart"],
+    "mediaUrl": "/media/shader-toolkit.svg",
+    "isVideo": false,
+    "groupSize": "Solo project.",
+    "contributions": "Designed a node-based authoring layer over raw shader graphs, wrote 30+ reusable function nodes, and built live hot-reload previews so artists iterate without recompiling.",
+    "summary": "An artist-facing toolkit for authoring procedural materials without touching shader code. Cut the team's material-iteration time roughly in half during production."
+  },
+  {
+    "id": "analytics-dashboard",
+    "title": "Realtime Analytics Dashboard",
+    "categories": ["swe"],
+    "mediaUrl": "/media/analytics-dashboard.svg",
+    "isVideo": false,
+    "groupSize": "Team of 3 engineers.",
+    "contributions": "Owned the streaming ingest pipeline and the WebSocket layer, designed the time-series aggregation schema, and built the front-end charting components from scratch.",
+    "summary": "A live dashboard that ingests event streams and renders sub-second updates across thousands of concurrent sessions. Built to stay responsive under spiky, real-world load."
+  },
+  {
+    "id": "co-op-puzzler",
+    "title": "Co-op Puzzle Prototype",
+    "categories": ["gamedev", "techart"],
+    "mediaUrl": "/media/co-op-puzzler.svg",
+    "isVideo": false,
+    "groupSize": "Team of 2 — 1 engineer, 1 artist (me on both hats).",
+    "contributions": "Prototyped the deterministic two-player physics, authored the stylized toon shader and outline pass, and built the level-flow tooling for rapid iteration.",
+    "summary": "A bite-sized co-op puzzler about two players sharing one set of abilities. A game-jam prototype that doubled as a testbed for a custom stylized rendering pipeline."
+  }
+]
