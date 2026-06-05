@@ -6,6 +6,8 @@
     "mediaUrl": "https://www.youtube.com/embed/JhaUb1DcLB8?si=k7XvfqQHQqF_bsSH",
     "posterUrl": "/media/neon-drift.svg",
     "isVideo": true,
+    "playUrl": "https://your-handle.itch.io/neon-drift",
+    "codeUrl": "https://github.com/your-handle/neon-drift",
     "groupSize": "Team of 5 — 2 engineers, 2 artists, 1 designer.",
     "contributions": "Built the arcade driving model and drift-scoring system, implemented the boost/chain combo loop, and wrote the replay-camera system used in trailers.",
     "summary": "A neon-soaked arcade racer about chaining perfect drifts. Built in 12 weeks as a vertical slice, with a focus on game-feel and a forgiving-but-deep scoring system."
@@ -17,6 +19,7 @@
     "mediaUrl": "/media/shader-toolkit.svg",
     "isVideo": false,
     "linkUrl": "https://github.com/your-handle/shader-toolkit",
+    "codeUrl": "https://github.com/your-handle/shader-toolkit",
     "groupSize": "Solo project.",
     "contributions": "Designed a node-based authoring layer over raw shader graphs, wrote 30+ reusable function nodes, and built live hot-reload previews so artists iterate without recompiling.",
     "summary": "An artist-facing toolkit for authoring procedural materials without touching shader code. Cut the team's material-iteration time roughly in half during production."

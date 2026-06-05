@@ -283,6 +283,31 @@ function renderMedia(project) {
   return renderImage(project);
 }
 
+/**
+ * Optional "Play" / "Code" call-to-action buttons. Each appears only when its
+ * URL is set in projects.json; returns null when neither exists (no empty row).
+ */
+function cardButtons(project) {
+  const specs = [
+    { label: 'Play', href: project.playUrl, icon: 'play', variant: 'primary' },
+    { label: 'Code', href: project.codeUrl, icon: 'code', variant: 'secondary' },
+  ].filter((b) => b.href);
+  if (!specs.length) return null;
+
+  const row = el('div', { class: 'card-buttons' });
+  for (const b of specs) {
+    const link = el(
+      'a',
+      { class: `card-button card-button-${b.variant}`, href: b.href, rel: 'noopener' },
+      icon(b.icon),
+      el('span', { text: b.label }),
+    );
+    if (/^https?:/i.test(b.href)) link.target = '_blank';
+    row.append(link);
+  }
+  return row;
+}
+
 /** A single project card: media on one side, details accordion on the other. */
 function renderCard(project) {
   const media = renderMedia(project);
@@ -305,6 +330,7 @@ function renderCard(project) {
     { class: 'card-body' },
     el('h2', { class: 'card-title', text: project.title }),
     tags,
+    cardButtons(project), // null when no playUrl/codeUrl — el() skips null children
     accordion,
   );
 
