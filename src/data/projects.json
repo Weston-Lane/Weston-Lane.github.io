@@ -16,6 +16,7 @@
     "categories": ["techart"],
     "mediaUrl": "/media/shader-toolkit.svg",
     "isVideo": false,
+    "linkUrl": "https://github.com/your-handle/shader-toolkit",
     "groupSize": "Solo project.",
     "contributions": "Designed a node-based authoring layer over raw shader graphs, wrote 30+ reusable function nodes, and built live hot-reload previews so artists iterate without recompiling.",
     "summary": "An artist-facing toolkit for authoring procedural materials without touching shader code. Cut the team's material-iteration time roughly in half during production."
@@ -26,6 +27,7 @@
     "categories": ["swe"],
     "mediaUrl": "/media/analytics-dashboard.svg",
     "isVideo": false,
+    "linkUrl": "https://your-handle.itch.io/analytics-dashboard",
     "groupSize": "Team of 3 engineers.",
     "contributions": "Owned the streaming ingest pipeline and the WebSocket layer, designed the time-series aggregation schema, and built the front-end charting components from scratch.",
     "summary": "A live dashboard that ingests event streams and renders sub-second updates across thousands of concurrent sessions. Built to stay responsive under spiky, real-world load."

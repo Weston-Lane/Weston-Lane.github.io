@@ -2,14 +2,16 @@
   "name": "Weston Lane",
   "role": "Game Developer · Technical Artist · Software Engineer",
   "tagline": "I build games, real-time tools, and the systems that hold them together.",
+  "photo": "/media/portrait.svg",
   "about": [
     "I'm a multidisciplinary developer working across game development, technical art, and software engineering. I like the messy middle: shipping playable experiences, building the tooling that makes a team faster, and writing the glue code that turns a prototype into a product.",
     "This page is the short version. If a recruiter sent you a tailored link, you're probably looking for a specific slice of my work — feel free to reach out directly and I'll point you at the rest."
   ],
   "contacts": [
-    { "label": "Email", "href": "mailto:weston.r.lane@gmail.com", "icon": "mail" },
+    { "label": "Email", "href": "mailto: weston.r.lane.work@gmail.com", "icon": "mail" },
     { "label": "GitHub", "href": "https://github.com/your-handle", "icon": "github" },
-    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/your-handle", "icon": "linkedin" }
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/your-handle", "icon": "linkedin" },
+    { "label": "itch.io", "href": "https://your-handle.itch.io", "icon": "itch" }
   ],
   "categories": {
     "gamedev": {

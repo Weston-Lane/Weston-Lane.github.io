@@ -222,10 +222,43 @@ a {
 
 .about-body {
   margin-top: 28px;
-  display: grid;
-  gap: 16px;
+  /* flow-root keeps the floated photo contained within this block so the
+     contacts below it never wrap up alongside the image. */
+  display: flow-root;
   color: var(--text);
   font-size: 17px;
+}
+
+.about-body p {
+  margin-bottom: 16px;
+}
+
+.about-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Portrait floated to the side; paragraphs wrap around it. */
+.about-photo {
+  float: right;
+  width: 220px;
+  max-width: 40%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  margin: 4px 0 16px 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elev-2);
+}
+
+@media (max-width: 560px) {
+  /* On narrow screens, stop floating and center the photo above the text. */
+  .about-photo {
+    float: none;
+    display: block;
+    width: 170px;
+    max-width: 60%;
+    margin: 0 auto 20px;
+  }
 }
 
 .about-contacts {
@@ -313,6 +346,28 @@ a {
 
 iframe.card-asset {
   border: 0;
+}
+
+/* Clickable media (project.linkUrl): greys out on hover/focus to signal it's a link. */
+.card-media-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.card-media-link .card-asset {
+  transition: filter 0.25s ease;
+}
+
+.card-media-link:hover .card-asset,
+.card-media-link:focus-visible .card-asset {
+  filter: grayscale(0.9) brightness(0.6);
+}
+
+.card-media-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 /* YouTube click-to-play facade */

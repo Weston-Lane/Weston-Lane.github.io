@@ -137,6 +137,18 @@ function renderAbout(main, site) {
     site.tagline ? el('p', { class: 'about-tagline', text: site.tagline }) : null,
   );
   const body = el('div', { class: 'about-body' });
+  // The floated photo must precede the paragraphs so the text wraps around it.
+  if (site.photo) {
+    body.append(
+      el('img', {
+        class: 'about-photo',
+        src: site.photo,
+        alt: `Photo of ${site.name}`,
+        loading: 'lazy',
+        decoding: 'async',
+      }),
+    );
+  }
   for (const para of site.about || []) body.append(el('p', { text: para }));
   intro.append(body);
   intro.append(contactList(site.contacts, 'about-contacts'));
@@ -186,6 +198,27 @@ function youTubeThumb(id) {
   return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 }
 
+/**
+ * If the project has a `linkUrl`, wrap its media in a clickable anchor (greyed
+ * on hover via CSS). Without a linkUrl the media is returned untouched.
+ * Not used for YouTube cards — there a click already plays the video.
+ */
+function mediaLink(project, node) {
+  if (!project.linkUrl) return node;
+  const link = el(
+    'a',
+    {
+      class: 'card-media-link',
+      href: project.linkUrl,
+      rel: 'noopener',
+      'aria-label': `${project.title} — open link`,
+    },
+    node,
+  );
+  if (/^https?:/i.test(project.linkUrl)) link.target = '_blank';
+  return link;
+}
+
 /** Local <video>: muted, looping, autoplaying thumbnail with a poster fallback. */
 function renderVideo(project) {
   const video = el('video', {
@@ -199,7 +232,7 @@ function renderVideo(project) {
     preload: 'metadata',
   });
   video.setAttribute('playsinline', '');
-  return el('div', { class: 'card-media' }, video);
+  return el('div', { class: 'card-media' }, mediaLink(project, video));
 }
 
 /**
@@ -232,17 +265,14 @@ function renderYouTube(project, id) {
 
 /** Static image card. */
 function renderImage(project) {
-  return el(
-    'div',
-    { class: 'card-media' },
-    el('img', {
-      class: 'card-asset',
-      src: project.mediaUrl,
-      alt: project.title,
-      loading: 'lazy',
-      decoding: 'async',
-    }),
-  );
+  const img = el('img', {
+    class: 'card-asset',
+    src: project.mediaUrl,
+    alt: project.title,
+    loading: 'lazy',
+    decoding: 'async',
+  });
+  return el('div', { class: 'card-media' }, mediaLink(project, img));
 }
 
 /** Pick the right media renderer. YouTube links win regardless of isVideo. */
