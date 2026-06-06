@@ -6,5 +6,5 @@
   </style>
   <polygon class="spin"
     points="50,4 61,37 96,37 68,58 79,94 50,72 21,94 32,58 4,37 39,37"
-    fill="#ff00ff" stroke="#00ffff" stroke-width="5" stroke-linejoin="round"/>
+    fill="#ff7a18" stroke="#2f6bff" stroke-width="5" stroke-linejoin="round"/>
 </svg>

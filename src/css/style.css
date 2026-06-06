@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Portfolio — RETRO theme (early-2000s / GeoCities, dark starfield + neon)
+   Portfolio — RETRO theme (early-2000s, grey checkerboard + blue/orange/yellow)
 
    Loud but readable. Pure CSS + a few animated SVGs under /retro/. No markup
    or JS changes: every class hook below is produced by main.js exactly as
@@ -9,26 +9,27 @@
    ========================================================================== */
 
 :root {
-  --bg: #06010f;
-  --panel: #130a2c;
-  --panel-hi: #1d1142;
+  --check-a: #b9b9b9;
+  --check-b: #9a9a9a;
 
-  --ink: #efe9ff;
-  --ink-dim: #c3a9ee;
+  --panel: #15295f;      /* deep blue panels */
+  --panel-hi: #1e3a86;
 
-  --green: #39ff14;
-  --cyan: #00ffff;
-  --magenta: #ff00ff;
-  --yellow: #ffff00;
-  --orange: #ff7a00;
+  --ink: #f2f5ff;        /* light text on blue panels */
+  --ink-dim: #b9c6ea;
+  --ink-dark: #15295f;   /* dark text directly on the grey background */
 
-  --link: #46e3ff;
-  --link-visited: #ff86ff;
-  --link-hover: #ffff00;
+  --blue: #2f6bff;
+  --orange: #ff7a18;
+  --yellow: #ffd400;
 
   --silver: #c6c6d6;
   --silver-hi: #ffffff;
   --silver-lo: #6b6b86;
+
+  --link: #1746c8;
+  --link-visited: #c2510a;
+  --link-hover: #ff7a18;
 
   --maxw: 1040px;
 
@@ -36,10 +37,10 @@
   --body: 'Times New Roman', Times, Georgia, serif;
   --mono: 'Courier New', Courier, monospace;
 
-  color-scheme: dark;
+  color-scheme: light;
   font: 17px/1.5 var(--body);
-  color: var(--ink);
-  background-color: var(--bg);
+  color: var(--ink-dark);
+  background-color: var(--check-a);
 }
 
 *,
@@ -48,44 +49,20 @@
   box-sizing: border-box;
 }
 
-/* ----- Starfield background ----------------------------------------------- */
+/* ----- Checkerboard grey background --------------------------------------- */
 
 body {
   margin: 0;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  color: var(--ink);
-  background-color: var(--bg);
-  background-image:
-    radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 130px 80px, #cfe9ff, transparent),
-    radial-gradient(2px 2px at 200px 160px, #ffd0ff, transparent),
-    radial-gradient(1px 1px at 280px 50px, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 60px 220px, #d0fff0, transparent),
-    radial-gradient(1px 1px at 250px 280px, #fff, transparent);
-  background-size: 320px 320px;
-  background-repeat: repeat;
-}
-
-/* Twinkle layer sitting behind everything. */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    radial-gradient(2px 2px at 90px 60px, var(--cyan), transparent),
-    radial-gradient(2px 2px at 240px 200px, var(--magenta), transparent),
-    radial-gradient(2px 2px at 160px 120px, var(--green), transparent);
-  background-size: 300px 300px;
-  background-repeat: repeat;
-  animation: twinkle 2.4s steps(2, end) infinite;
-}
-
-@keyframes twinkle {
-  50% { opacity: 0.25; }
+  color: var(--ink-dark);
+  background-color: var(--check-a);
+  background-image: repeating-conic-gradient(
+    var(--check-b) 0% 25%,
+    var(--check-a) 0% 50%
+  );
+  background-size: 44px 44px;
 }
 
 /* ----- Typography & links ------------------------------------------------- */
@@ -95,8 +72,8 @@ h2 {
   font-family: var(--head);
   margin: 0;
   line-height: 1.15;
-  color: var(--yellow);
-  text-shadow: 2px 2px 0 var(--magenta), 0 0 10px rgba(255, 0, 255, 0.6);
+  color: var(--orange);
+  text-shadow: 2px 2px 0 var(--panel), 0 0 8px rgba(255, 122, 24, 0.45);
 }
 
 p {
@@ -115,21 +92,34 @@ a:hover {
 }
 
 :focus-visible {
-  outline: 3px dashed var(--yellow);
+  outline: 3px dashed var(--blue);
   outline-offset: 2px;
 }
 
 /* A reusable spinning-star bullet for headings. */
-.projects-title::before,
 .about-name::before,
 .card-title::before {
   content: '';
   display: inline-block;
-  width: 1em;
   height: 1em;
-  margin-right: 0.4em;
   vertical-align: -0.15em;
-  background: url('/retro/star.svg') center / contain no-repeat;
+  
+}
+
+/* Blinking text-box caret after each category page title. */
+.projects-title::after {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 0.95em;
+  margin-left: 8px;
+  vertical-align: -0.12em;
+  background: #000000;
+  animation: caret-blink 1.5s steps(1, end) infinite;
+}
+
+@keyframes caret-blink {
+  50% { opacity: 0; }
 }
 
 /* ----- Shared layout shell ------------------------------------------------ */
@@ -156,9 +146,9 @@ a:hover {
   z-index: 10;
   overflow: hidden;
   padding-block: 14px;
-  background: linear-gradient(180deg, #1a0f3e, #0c0726);
-  border-bottom: 4px ridge var(--cyan);
-  box-shadow: 0 0 18px rgba(0, 255, 255, 0.35);
+  background: linear-gradient(180deg, var(--panel-hi), var(--panel));
+  border-bottom: 4px ridge var(--orange);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
 }
 
 .header-inner {
@@ -169,18 +159,17 @@ a:hover {
   flex-wrap: wrap;
 }
 
-/* Scrolling marquee strip that lives inside the banner, under the row. */
-.site-header::after {
-  content: '✦ WELCOME TO MY CORNER OF THE WEB ✦ BEST VIEWED IN NETSCAPE NAVIGATOR @ 800×600 ✦ SIGN MY GUESTBOOK ✦ THANKS FOR VISITING ✦ ';
-  display: block;
+/* Scrolling marquee strip that lives inside the banner, under the row.
+   Its text comes from site.json ("marquee"), rendered by renderHeader(). */
+.header-marquee {
   white-space: nowrap;
   margin-top: 10px;
   font-family: var(--mono);
   font-size: 13px;
   font-weight: bold;
   letter-spacing: 1px;
-  color: var(--green);
-  text-shadow: 0 0 6px rgba(57, 255, 20, 0.7);
+  color: var(--yellow);
+  text-shadow: 1px 1px 0 #000;
   animation: marquee 22s linear infinite;
 }
 
@@ -192,8 +181,8 @@ a:hover {
 .header-name {
   font-family: var(--head);
   font-size: 22px;
-  color: var(--cyan);
-  text-shadow: 2px 2px 0 var(--magenta);
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 #000;
 }
 
 .header-role {
@@ -230,7 +219,7 @@ a:hover {
   font-size: 13px;
   font-weight: bold;
   text-decoration: none;
-  color: #160a24;
+  color: #15295f;
   background: var(--silver);
   padding: 6px 11px;
   border: 3px outset var(--silver-hi);
@@ -238,11 +227,11 @@ a:hover {
 }
 .site-nav-link:visited,
 .header-contacts a:visited {
-  color: #160a24;
+  color: #15295f;
 }
 .site-nav-link:hover,
 .header-contacts a:hover {
-  color: #160a24;
+  color: #15295f;
   background: #d9d9ec;
 }
 .site-nav-link:active,
@@ -261,11 +250,11 @@ a:hover {
 .about {
   max-width: 720px;
   margin-inline: auto;
-  padding-block: 20px;
   background: var(--panel);
-  border: 4px ridge var(--magenta);
+  color: var(--ink);
+  border: 4px ridge var(--orange);
   padding: 22px;
-  box-shadow: 0 0 16px rgba(255, 0, 255, 0.3);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
 .about-eyebrow {
@@ -274,7 +263,7 @@ a:hover {
   letter-spacing: 0.2em;
   font-size: 12px;
   font-weight: bold;
-  color: var(--green);
+  color: var(--yellow);
   margin-bottom: 12px;
 }
 
@@ -285,7 +274,7 @@ a:hover {
 .about-tagline {
   font-family: var(--head);
   font-size: clamp(17px, 3.2vw, 21px);
-  color: var(--cyan);
+  color: var(--yellow);
   margin-top: 14px;
 }
 
@@ -293,6 +282,7 @@ a:hover {
   margin-top: 22px;
   display: flow-root;
   font-size: 17px;
+  color: var(--ink);
 }
 
 .about-body p {
@@ -309,7 +299,7 @@ a:hover {
   aspect-ratio: 4 / 5;
   object-fit: cover;
   margin: 4px 0 14px 20px;
-  border: 5px ridge var(--cyan);
+  border: 5px ridge var(--yellow);
   background: var(--panel-hi);
 }
 
@@ -330,13 +320,13 @@ a:hover {
   font-weight: bold;
   font-size: 14px;
   text-decoration: none;
-  color: #160a24;
+  color: #15295f;
   background: var(--silver);
   padding: 9px 15px;
   border: 3px outset var(--silver-hi);
 }
 .about-contacts a:visited {
-  color: #160a24;
+  color: #15295f;
 }
 .about-contacts a:active {
   border-style: inset;
@@ -345,7 +335,6 @@ a:hover {
 /* ----- Projects intro ----------------------------------------------------- */
 
 .projects-intro {
-  max-width: 760px;
   margin: 4px auto 30px;
   text-align: center;
 }
@@ -355,25 +344,21 @@ a:hover {
 }
 
 .projects-blurb {
+  max-width: 760px;
+  margin: 10px auto 0;
   font-family: var(--mono);
-  color: var(--ink-dim);
+  color: var(--ink-dark);
+  font-weight: bold;
   font-size: 15px;
-  margin-top: 10px;
 }
 
-/* Animated scrolling divider under the intro. */
-.projects-intro::after,
-.about::after {
+/* Divider bar identical to the footer bar: same navy ridge, same full width.
+   The negative inline margin reaches the page edges (past the 18px padding). */
+.projects-intro::after {
   content: '';
   display: block;
-  height: 20px;
-  margin-top: 18px;
-  background: url('/retro/divider.svg') repeat-x center / 40px 20px;
-  animation: divider-slide 4s linear infinite;
-}
-
-@keyframes divider-slide {
-  to { background-position-x: 40px; }
+  margin: 18px -18px 0;
+  border-top: 4px ridge var(--panel);
 }
 
 /* ----- Card list (infinite vertical scroll) ------------------------------ */
@@ -388,16 +373,17 @@ a:hover {
   display: grid;
   grid-template-columns: 1fr;
   background: var(--panel);
-  border: 4px ridge var(--cyan);
-  box-shadow: 0 0 14px rgba(0, 255, 255, 0.25), inset 0 0 24px rgba(255, 0, 255, 0.06);
+  color: var(--ink);
+  border: 4px ridge var(--orange);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
 }
 
 .card-media {
   position: relative;
   aspect-ratio: 16 / 9;
-  background: #0a0420;
+  background: var(--panel-hi);
   overflow: hidden;
-  border-bottom: 3px ridge var(--magenta);
+  border-bottom: 3px ridge var(--yellow);
 }
 
 .card-asset {
@@ -409,6 +395,32 @@ a:hover {
 
 iframe.card-asset {
   border: 0;
+}
+
+/* GIF that plays only on hover: the frozen <canvas> still stays underneath the
+   whole time, and the live GIF (stacked on top) just fades in on hover/focus.
+   Because the still never leaves, the card background is never exposed — no
+   flash of blue during the swap. An optional overlay anchor handles linkUrl. */
+.card-media-gif .card-asset {
+  position: absolute;
+  inset: 0;
+}
+.card-gif-still {
+  z-index: 1;
+}
+.card-gif {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.card-media-gif:hover .card-gif,
+.card-media-gif:focus-within .card-gif {
+  opacity: 1;
+}
+.card-gif-link {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
 }
 
 /* Clickable media greys out on hover/focus. */
@@ -440,6 +452,7 @@ iframe.card-asset {
 .card-title {
   font-size: 24px;
   color: var(--yellow);
+  text-shadow: 2px 2px 0 #000;
 }
 
 .card-tags {
@@ -456,9 +469,9 @@ iframe.card-asset {
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
-  color: var(--green);
-  background: #0a0420;
-  border: 2px solid var(--green);
+  color: var(--orange);
+  background: #0c1430;
+  border: 2px solid var(--orange);
   padding: 3px 9px;
 }
 .card-tags li::before {
@@ -485,12 +498,12 @@ iframe.card-asset {
   font-weight: bold;
   text-transform: uppercase;
   text-decoration: none;
-  color: #06010f;
+  color: #15295f;
   padding: 9px 16px;
   border: 4px outset;
 }
 .card-button:visited {
-  color: #06010f;
+  color: #15295f;
 }
 .card-button:active {
   border-style: inset;
@@ -501,12 +514,12 @@ iframe.card-asset {
 }
 
 .card-button-primary {
-  background: var(--green);
-  border-color: #9affb0;
+  background: var(--orange);
+  border-color: #ffb066;
 }
 .card-button-secondary {
-  background: var(--cyan);
-  border-color: #aaffff;
+  background: var(--yellow);
+  border-color: #ffe866;
 }
 
 /* ----- Accordion ---------------------------------------------------------- */
@@ -529,7 +542,7 @@ iframe.card-asset {
   font-size: 14px;
   font-weight: bold;
   text-align: left;
-  color: #160a24;
+  color: #15295f;
   background: var(--silver);
   border: 3px outset var(--silver-hi);
   cursor: pointer;
@@ -547,7 +560,7 @@ iframe.card-asset {
   height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 8px solid #160a24;
+  border-top: 8px solid #15295f;
   flex: none;
   transition: transform 0.15s ease;
 }
@@ -563,7 +576,7 @@ iframe.card-asset {
   padding: 12px;
   font-size: 15px;
   color: var(--ink);
-  background: #0a0420;
+  background: #0c1430;
   border: 2px inset var(--silver-lo);
 }
 
@@ -573,13 +586,13 @@ iframe.card-asset {
   text-align: center;
   padding: 36px 18px;
   font-family: var(--mono);
-  color: var(--ink-dim);
+  color: var(--ink);
   background: var(--panel);
-  border: 3px ridge var(--magenta);
+  border: 3px ridge var(--orange);
 }
 .state-error {
-  color: #ff6b6b;
-  border-color: #ff6b6b;
+  color: #ffb066;
+  border-color: #ffb066;
 }
 
 /* ----- Footer ------------------------------------------------------------- */
@@ -588,14 +601,14 @@ iframe.card-asset {
   flex: none;
   padding-block: 24px 34px;
   text-align: center;
-  border-top: 4px ridge var(--cyan);
+  border-top: 4px ridge var(--panel);
 }
 
 /* Animated "under construction" banner above the footer text. */
 .site-footer::before {
   content: '';
   display: block;
-  width: 280px;
+  width: 360px;
   max-width: 90%;
   height: 56px;
   margin: 0 auto 14px;
@@ -604,9 +617,9 @@ iframe.card-asset {
 
 .footer-copy {
   font-family: var(--mono);
-  color: var(--green);
+  color: var(--ink-dark);
+  font-weight: bold;
   font-size: 13px;
-  text-shadow: 0 0 5px rgba(57, 255, 20, 0.6);
 }
 
 /* Fake hit counter, classic LED look. */
@@ -615,7 +628,7 @@ iframe.card-asset {
   display: inline-block;
   margin-left: 10px;
   padding: 2px 8px;
-  color: var(--green);
+  color: var(--orange);
   background: #000;
   border: 2px inset var(--silver-lo);
   letter-spacing: 2px;
@@ -647,8 +660,8 @@ iframe.card-asset {
   margin: auto;
   width: 74px;
   height: 52px;
-  background: var(--magenta);
-  border: 4px outset #ff8aff;
+  background: var(--orange);
+  border: 4px outset #ffb066;
   display: grid;
   place-items: center;
 }
@@ -659,7 +672,7 @@ iframe.card-asset {
   margin-left: 4px;
   border-style: solid;
   border-width: 11px 0 11px 18px;
-  border-color: transparent transparent transparent #06010f;
+  border-color: transparent transparent transparent #15295f;
 }
 .yt-facade:hover .yt-play-btn {
   background: var(--yellow);
@@ -677,7 +690,7 @@ iframe.card-asset {
     height: 100%;
     min-height: 300px;
     border-bottom: none;
-    border-right: 3px ridge var(--magenta);
+    border-right: 3px ridge var(--yellow);
   }
   .card-body {
     padding: 26px;

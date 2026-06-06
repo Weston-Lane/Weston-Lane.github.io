@@ -111,7 +111,12 @@ function renderHeader(site, navLinks = []) {
   if (navLinks.length) actions.append(navList(navLinks));
   actions.append(contactList(site.contacts, 'header-contacts'));
 
-  mount.replaceChildren(el('div', { class: 'header-inner' }, identity, actions));
+  const children = [el('div', { class: 'header-inner' }, identity, actions)];
+  // Optional scrolling marquee strip under the header row (decorative chrome).
+  if (site.marquee) {
+    children.push(el('div', { class: 'header-marquee', text: site.marquee }));
+  }
+  mount.replaceChildren(...children);
 }
 
 function renderFooter(site) {
@@ -275,10 +280,58 @@ function renderImage(project) {
   return el('div', { class: 'card-media' }, mediaLink(project, img));
 }
 
+/** Does this URL point at a .gif (ignoring any query/hash)? */
+function isGif(url) {
+  return typeof url === 'string' && /\.gif(?:[?#]|$)/i.test(url);
+}
+
+/**
+ * GIF card that plays only on hover. A GIF can't be paused, so we snapshot its
+ * first frame onto a <canvas> (shown while idle) and reveal the live, animating
+ * <img> on hover/focus — see the .card-media-gif rules in the stylesheet.
+ */
+function renderGif(project) {
+  const gif = el('img', {
+    class: 'card-asset card-gif',
+    src: project.mediaUrl,
+    alt: project.title,
+    loading: 'lazy',
+    decoding: 'async',
+  });
+  const still = el('canvas', { class: 'card-asset card-gif-still', 'aria-hidden': 'true' });
+
+  // Freeze the first frame onto the canvas once the GIF has decoded.
+  const snapshot = () => {
+    if (!gif.naturalWidth) return;
+    still.width = gif.naturalWidth;
+    still.height = gif.naturalHeight;
+    const ctx = still.getContext('2d');
+    if (ctx) ctx.drawImage(gif, 0, 0);
+  };
+  if (gif.complete) snapshot();
+  else gif.addEventListener('load', snapshot, { once: true });
+
+  const media = el('div', { class: 'card-media card-media-gif' }, still, gif);
+
+  // Keep linkUrl support via an overlay anchor (the stacked layers are absolute).
+  if (project.linkUrl) {
+    const link = el('a', {
+      class: 'card-gif-link',
+      href: project.linkUrl,
+      rel: 'noopener',
+      'aria-label': `${project.title} — open link`,
+    });
+    if (/^https?:/i.test(project.linkUrl)) link.target = '_blank';
+    media.append(link);
+  }
+  return media;
+}
+
 /** Pick the right media renderer. YouTube links win regardless of isVideo. */
 function renderMedia(project) {
   const ytId = youTubeId(project.mediaUrl);
   if (ytId) return renderYouTube(project, ytId);
+  if (isGif(project.mediaUrl)) return renderGif(project);
   if (project.isVideo) return renderVideo(project);
   return renderImage(project);
 }

@@ -6,7 +6,7 @@
     "id": "polarize",
     "title": "Polarize",
     "categories": ["gamedev"],
-    "mediaUrl": "https://www.youtube.com/watch?v=JhaUb1DcLB8",
+    "mediaUrl": "/media/Polarize.gif",
     "isVideo": false,
     "playUrl": "https://sparefireboy.itch.io/polarized",
     "summary": "RU Game Jam 2026 winner — a puzzle game about magnets."
@@ -40,7 +40,7 @@
     "id": "snow-deformation-shader",
     "title": "Snow Deformation Shader",
     "categories": ["gamedev"],
-    "mediaUrl": "/media/snow-deformation-shader.svg",
+    "mediaUrl": "https://img.itch.zone/aW1hZ2UvMzgwNTY1Ny8yMjY4NzQ0MS5wbmc=/347x500/D7A4Js.png",
     "isVideo": false,
     "playUrl": "https://sparefireboy.itch.io/snow-deformation-shader"
   },

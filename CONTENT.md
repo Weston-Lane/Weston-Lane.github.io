@@ -16,6 +16,7 @@ A field marked **optional** can be left out entirely — the site hides anything
 | `name` | string | **required** | Your name. Shown in the header on every page and as the big heading on the index/about pages. |
 | `role` | string | optional | Small subtitle under your name in the header (e.g. job titles). |
 | `tagline` | string | optional | One-line hook shown under your name on the index/about pages. |
+| `marquee` | string | optional | The scrolling text strip in the banner. Keep it one line; end with a few spaces for a gap before it loops. Omit to hide the marquee. |
 | `photo` | string | optional | Path to your portrait image (e.g. `/media/portrait.svg`). Floats beside your bio; text wraps around it. Omit to hide the photo. |
 | `about` | array of strings | optional | Your bio. **Each string is its own paragraph.** Shown on the index/about pages. |
 | `contacts` | array of objects | optional | The contact buttons in the header + about page. See below. |
@@ -80,8 +81,9 @@ A list (`[ … ]`) of project objects. Each project appears on the category page
 ### How `mediaUrl` works (priority order)
 
 1. **YouTube link** (e.g. `https://www.youtube.com/watch?v=…`, `youtu.be/…`, or an embed URL) → shows a poster with a play button; loads the video on click. Auto-detected, so `isVideo` doesn't matter here.
-2. **`isVideo: true`** → treated as a local, muted, looping video file.
-3. **Anything else** → treated as an image.
+2. **`.gif` link** → **plays only on hover.** It shows a frozen first frame by default and animates when you hover (or keyboard-focus) the card. Auto-detected from the `.gif` extension; `isVideo` is ignored.
+3. **`isVideo: true`** → treated as a local, muted, looping video file.
+4. **Anything else** → treated as an image.
 
 `linkUrl`, `playUrl`, and `codeUrl` are all independent of `mediaUrl` — a card can have a playable trailer *and* Play/Code buttons.
 
