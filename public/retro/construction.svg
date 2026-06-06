@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" width="320" height="64">
+  <style>
+    .blink { animation: blink 1.2s steps(1, end) infinite; }
+    @keyframes blink { 50% { opacity: 0.25; } }
+    @media (prefers-reduced-motion: reduce) { .blink { animation: none; } }
+  </style>
+  <defs>
+    <pattern id="hazard" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="28" height="28" fill="#ffd400"/>
+      <rect width="14" height="28" fill="#0a0420"/>
+    </pattern>
+  </defs>
+  <rect width="320" height="64" fill="#0a0420"/>
+  <rect x="0" y="0" width="320" height="12" fill="url(#hazard)"/>
+  <rect x="0" y="52" width="320" height="12" fill="url(#hazard)"/>
+  <text class="blink" x="160" y="41" text-anchor="middle"
+    font-family="'Comic Sans MS', cursive" font-size="22" font-weight="bold" fill="#ffff00">★ UNDER CONSTRUCTION ★</text>
+</svg>
