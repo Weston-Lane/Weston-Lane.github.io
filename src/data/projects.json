@@ -1,5 +1,8 @@
 [
   {
+    "_comment": "Field reference for projects → see CONTENT.md in the project root. This entry has no 'categories', so it never renders as a card — it's just a note. Real projects start below."
+  },
+  {
     "id": "polarize",
     "title": "Polarize",
     "categories": ["gamedev"],
