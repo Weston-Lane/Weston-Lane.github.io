@@ -10,5 +10,5 @@
   <circle cx="640" cy="250" r="60" fill="#fffbeb" opacity="0.5"/>
   <polygon points="640,300 615,340 665,340" fill="#f97316" opacity="0.6"/>
   <text x="640" y="430" text-anchor="middle" font-family="system-ui, sans-serif" font-size="84" font-weight="700" fill="#fffbeb">Chicken Run</text>
-  <text x="640" y="488" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" fill="#fef9c3" opacity="0.9">playable in browser · thumbnail placeholder</text>
+  <text x="640" y="488" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" fill="#fef9c3" opacity="0.9">playable in browser</text>
 </svg>

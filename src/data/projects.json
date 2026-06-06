@@ -9,7 +9,7 @@
     "mediaUrl": "/media/Polarize.gif",
     "isVideo": false,
     "gallery": [
-      "/media/polarize-shot-1.svg",
+      "",
       "/media/polarize-shot-2.svg",
       "/media/polarize-shot-3.svg"
     ],
@@ -17,21 +17,41 @@
     "summary": "RU Game Jam 2026 winner — a puzzle game about magnets."
   },
   {
-    "id": "furniture-dash",
-    "title": "Furniture Dash",
+    "id": "snow-deformation-shader",
+    "title": "Snow Deformation Shader",
     "categories": ["gamedev"],
-    "mediaUrl": "/media/furniture-dash.svg",
+    "mediaUrl": "https://img.itch.zone/aW1hZ2UvMzgwNTY1Ny8yMjY4NzQ0MS5wbmc=/347x500/D7A4Js.png",
+    "gallery": [
+      "https://img.itch.zone/aW1hZ2UvMzgwNTY1Ny8yMjczMTI2My5naWY=/original/037siE.gif",
+      "https://img.itch.zone/aW1hZ2UvMzgwNTY1Ny8yMjY4NzQ0Mi5wbmc=/347x500/yN73lc.png"
+    ],
     "isVideo": false,
-    "playUrl": "https://sparefireboy.itch.io/furniture-dash",
-    "summary": "Made for RU Game Jam 2025."
+    "playUrl": "https://sparefireboy.itch.io/snow-deformation-shader"
   },
   {
     "id": "ray-casting-engine",
     "title": "Ray Casting Engine",
     "categories": ["gamedev"],
-    "mediaUrl": "/media/ray-casting-engine.svg",
+    "mediaUrl": "https://www.youtube.com/embed/sJd-7OEzEx0?start=160",
+    "gallery": [
+      "https://img.itch.zone/aW1hZ2UvMzgzNTY4My8yMjg3NDgzOS5naWY=/original/tQ%2FQYe.gif"
+    ],
     "isVideo": false,
     "playUrl": "https://sparefireboy.itch.io/ray-casting-engine"
+  },
+  {
+    "id": "furniture-dash",
+    "title": "Furniture Dash",
+    "categories": ["gamedev"],
+    "mediaUrl": "https://img.itch.zone/aW1nLzIzMzM3NTU2LnBuZw==/315x250%23c/I6yG5K.png",
+    "gallery": [
+      "https://img.itch.zone/aW1hZ2UvMzkxMTk1Mi8yMzMzNzM0Mi5wbmc=/347x500/z0CyIY.png",
+      "https://img.itch.zone/aW1hZ2UvMzkxMTk1Mi8yMzMzNzM0NS5naWY=/original/efTgIM.gif",
+      "https://img.itch.zone/aW1hZ2UvMzkxMTk1Mi8yMzMzNzM0My5wbmc=/347x500/hcjJyd.png"
+    ],
+    "isVideo": false,
+    "playUrl": "https://sparefireboy.itch.io/furniture-dash",
+    "summary": "Made for RU Game Jam 2025."
   },
   {
     "id": "chicken-run",
@@ -40,23 +60,6 @@
     "mediaUrl": "/media/chicken-run.svg",
     "isVideo": false,
     "playUrl": "https://sparefireboy.itch.io/chicken-run"
-  },
-  {
-    "id": "snow-deformation-shader",
-    "title": "Snow Deformation Shader",
-    "categories": ["gamedev"],
-    "mediaUrl": "https://img.itch.zone/aW1hZ2UvMzgwNTY1Ny8yMjY4NzQ0MS5wbmc=/347x500/D7A4Js.png",
-    "isVideo": false,
-    "playUrl": "https://sparefireboy.itch.io/snow-deformation-shader"
-  },
-  {
-    "id": "snake-but-bad",
-    "title": "Snake but bad",
-    "categories": ["gamedev"],
-    "mediaUrl": "/media/snake-but-bad.svg",
-    "isVideo": false,
-    "playUrl": "https://sparefireboy.itch.io/snake-but-bad",
-    "summary": "huh?"
   },
   {
     "id": "shader-toolkit",

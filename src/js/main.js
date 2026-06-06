@@ -204,6 +204,26 @@ function youTubeThumb(id) {
 }
 
 /**
+ * Start time (in seconds) from a YouTube URL's `start=` or `t=` param. Accepts
+ * plain seconds (`start=30`) or YouTube's `1h2m3s` / `90s` form. Null if absent.
+ */
+function youTubeStart(url) {
+  if (typeof url !== 'string') return null;
+  const match = url.match(/[?&](?:start|t)=([\w]+)/i);
+  if (!match) return null;
+  const raw = match[1];
+  if (/^\d+$/.test(raw)) return Number(raw);
+  let seconds = 0;
+  const h = raw.match(/(\d+)h/i);
+  const m = raw.match(/(\d+)m/i);
+  const s = raw.match(/(\d+)s/i);
+  if (h) seconds += Number(h[1]) * 3600;
+  if (m) seconds += Number(m[1]) * 60;
+  if (s) seconds += Number(s[1]);
+  return seconds || null;
+}
+
+/**
  * If the project has a `linkUrl`, wrap its media in a clickable anchor (greyed
  * on hover via CSS). Without a linkUrl the media is returned untouched.
  * Not used for YouTube cards — there a click already plays the video.
@@ -224,48 +244,66 @@ function mediaLink(project, node) {
   return link;
 }
 
-/** Local <video>: muted, looping, autoplaying thumbnail with a poster fallback. */
-function renderVideo(project) {
+/** A muted, looping, autoplaying <video> element with an optional poster. */
+function videoElement(src, posterUrl, alt) {
   const video = el('video', {
     class: 'card-asset',
-    src: project.mediaUrl,
-    poster: project.posterUrl || null,
+    src,
+    poster: posterUrl || null,
     muted: true,
     loop: true,
     autoplay: true,
     playsInline: true,
     preload: 'metadata',
+    'aria-label': alt || null,
   });
   video.setAttribute('playsinline', '');
-  return el('div', { class: 'card-media' }, mediaLink(project, video));
+  return video;
+}
+
+/** Local <video> card. */
+function renderVideo(project) {
+  return el(
+    'div',
+    { class: 'card-media' },
+    mediaLink(project, videoElement(project.mediaUrl, project.posterUrl, project.title)),
+  );
 }
 
 /**
- * YouTube "lite" facade: show the poster (explicit or YouTube's thumbnail) with
- * a play button, and only load the heavy iframe on click. Keeps every card fast
- * and private until the visitor actually presses play.
+ * YouTube "lite" facade: poster + play button; the heavy iframe loads only on
+ * click (handled by wireYouTube). Keeps cards fast/private until pressed.
  */
-function renderYouTube(project, id) {
+function youTubeFacade(id, title, posterUrl, start) {
   const poster = el('img', {
     class: 'card-asset',
-    src: project.posterUrl || youTubeThumb(id),
-    alt: project.title,
+    src: posterUrl || youTubeThumb(id),
+    alt: title,
     loading: 'lazy',
     decoding: 'async',
   });
-  const facade = el(
+  return el(
     'button',
     {
       type: 'button',
       class: 'yt-facade',
-      'aria-label': `Play video: ${project.title}`,
+      'aria-label': `Play video: ${title}`,
       'data-yt-id': id,
-      'data-yt-title': project.title,
+      'data-yt-title': title,
+      'data-yt-start': start ? String(start) : null,
     },
     poster,
     el('span', { class: 'yt-play-btn', 'aria-hidden': 'true' }),
   );
-  return el('div', { class: 'card-media card-media-youtube' }, facade);
+}
+
+/** Single YouTube card. */
+function renderYouTube(project, id) {
+  return el(
+    'div',
+    { class: 'card-media card-media-youtube' },
+    youTubeFacade(id, project.title, project.posterUrl, youTubeStart(project.mediaUrl)),
+  );
 }
 
 /** Static image card. */
@@ -286,21 +324,20 @@ function isGif(url) {
 }
 
 /**
- * GIF card that plays only on hover. A GIF can't be paused, so we snapshot its
- * first frame onto a <canvas> (shown while idle) and reveal the live, animating
- * <img> on hover/focus — see the .card-media-gif rules in the stylesheet.
+ * Build the freeze-on-hover GIF layers: a <canvas> snapshot of the first frame
+ * (shown while idle) plus the live <img> on top. A GIF can't be paused, so the
+ * canvas is the "paused" state and the .card-media-gif:hover rules reveal the
+ * animating <img>. Returns [still, gif]; reused by single GIFs and galleries.
  */
-function renderGif(project) {
+function gifFreeze(url, alt) {
   const gif = el('img', {
     class: 'card-asset card-gif',
-    src: project.mediaUrl,
-    alt: project.title,
+    src: url,
+    alt,
     loading: 'lazy',
     decoding: 'async',
   });
   const still = el('canvas', { class: 'card-asset card-gif-still', 'aria-hidden': 'true' });
-
-  // Freeze the first frame onto the canvas once the GIF has decoded.
   const snapshot = () => {
     if (!gif.naturalWidth) return;
     still.width = gif.naturalWidth;
@@ -310,8 +347,12 @@ function renderGif(project) {
   };
   if (gif.complete) snapshot();
   else gif.addEventListener('load', snapshot, { once: true });
+  return [still, gif];
+}
 
-  const media = el('div', { class: 'card-media card-media-gif' }, still, gif);
+/** Single GIF card that plays only on hover. */
+function renderGif(project) {
+  const media = el('div', { class: 'card-media card-media-gif' }, ...gifFreeze(project.mediaUrl, project.title));
 
   // Keep linkUrl support via an overlay anchor (the stacked layers are absolute).
   if (project.linkUrl) {
@@ -328,36 +369,65 @@ function renderGif(project) {
 }
 
 /**
+ * One carousel slide, rendered by its own media type so a gallery can mix a
+ * YouTube embed, GIFs, a video, and images. YouTube slides are flagged
+ * `interactive` so their click plays the video instead of advancing.
+ */
+function gallerySlide(src, project, i, count) {
+  const label = `${project.title} — image ${i + 1} of ${count}`;
+  const ytId = youTubeId(src);
+  if (ytId) {
+    const slide = el(
+      'div',
+      { class: 'card-gallery-slide card-media-youtube' },
+      youTubeFacade(ytId, project.title, project.posterUrl, youTubeStart(src)),
+    );
+    slide.dataset.interactive = 'true';
+    return slide;
+  }
+  if (isGif(src)) {
+    return el('div', { class: 'card-gallery-slide card-media-gif' }, ...gifFreeze(src, label));
+  }
+  // Only the first slide (mediaUrl) can be a local video; gallery extras are images.
+  if (i === 0 && project.isVideo) {
+    return el('div', { class: 'card-gallery-slide' }, videoElement(src, project.posterUrl, label));
+  }
+  return el(
+    'div',
+    { class: 'card-gallery-slide' },
+    el('img', { class: 'card-asset', src, alt: label, loading: i === 0 ? 'eager' : 'lazy', decoding: 'async' }),
+  );
+}
+
+/**
  * Image carousel: shows mediaUrl first, then each gallery image. Prev/next
- * arrows (and clicking the image) cycle through, wrapping at the ends. All
- * slides are preloaded so swaps are instant. Click/tap based, so it works on
- * mobile too.
+ * arrows (and clicking a non-interactive slide) cycle through, wrapping at the
+ * ends. Image/GIF slides are preloaded so swaps are instant. Click/tap based,
+ * so it works on mobile too.
  */
 function renderGallery(project) {
-  const slides = [project.mediaUrl, ...project.gallery].filter(Boolean);
-  let index = 0;
+  const sources = [project.mediaUrl, ...project.gallery].filter(Boolean);
 
-  // Preload every slide so navigation never shows a blank/loading frame.
-  for (const src of slides) {
+  // Preload image/GIF slides (skip YouTube — its embed URL isn't an image).
+  for (const src of sources) {
+    if (youTubeId(src)) continue;
     const pre = new Image();
     pre.src = src;
   }
 
-  const img = el('img', {
-    class: 'card-asset card-gallery-img',
-    src: slides[0],
-    alt: `${project.title} — image 1 of ${slides.length}`,
-    decoding: 'async',
-  });
-  const counter = el('span', { class: 'card-gallery-counter' });
+  // One stacked layer per slide; only the active one is shown.
+  const slides = sources.map((src, i) => gallerySlide(src, project, i, sources.length));
 
+  let index = 0;
+  const counter = el('span', { class: 'card-gallery-counter' });
   const show = (next) => {
+    slides[index].classList.remove('is-active');
     index = (next + slides.length) % slides.length;
-    img.src = slides[index];
-    img.alt = `${project.title} — image ${index + 1} of ${slides.length}`;
+    slides[index].classList.add('is-active');
     counter.textContent = `${index + 1} / ${slides.length}`;
   };
-  show(0);
+  slides[0].classList.add('is-active');
+  counter.textContent = `1 / ${slides.length}`;
 
   const prev = el('button', {
     type: 'button',
@@ -373,12 +443,17 @@ function renderGallery(project) {
   });
   prev.addEventListener('click', () => show(index - 1));
   nextBtn.addEventListener('click', () => show(index + 1));
-  img.addEventListener('click', () => show(index + 1));
+  // Click a slide to advance — except interactive slides (a YouTube facade needs
+  // its click to play). Arrows sit above via z-index so they don't double-fire.
+  for (const slide of slides) {
+    if (slide.dataset.interactive) continue;
+    slide.addEventListener('click', () => show(index + 1));
+  }
 
   return el(
     'div',
     { class: 'card-media card-media-gallery', role: 'group', 'aria-label': `${project.title} images` },
-    img,
+    ...slides,
     prev,
     nextBtn,
     counter,
@@ -504,6 +579,7 @@ function wireYouTube(root) {
       modestbranding: '1',
       playsinline: '1',
     });
+    if (facade.dataset.ytStart) params.set('start', facade.dataset.ytStart);
     const iframe = el('iframe', {
       class: 'card-asset',
       src: `https://www.youtube.com/embed/${id}?${params}`,

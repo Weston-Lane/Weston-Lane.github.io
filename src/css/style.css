@@ -423,9 +423,17 @@ iframe.card-asset {
   z-index: 3;
 }
 
-/* Image carousel: silver Win98 arrows + LED-style counter over the media. */
-.card-gallery-img {
+/* Image carousel: stacked slides (only .is-active shown) with silver Win98
+   arrows + an LED-style counter over the media. GIF slides keep freeze-on-hover
+   via the .card-media-gif rules above. */
+.card-gallery-slide {
+  position: absolute;
+  inset: 0;
+  display: none;
   cursor: pointer;
+}
+.card-gallery-slide.is-active {
+  display: block;
 }
 .card-gallery-arrow {
   position: absolute;
