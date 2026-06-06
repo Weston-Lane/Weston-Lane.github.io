@@ -8,6 +8,11 @@
     "categories": ["gamedev"],
     "mediaUrl": "/media/Polarize.gif",
     "isVideo": false,
+    "gallery": [
+      "/media/polarize-shot-1.svg",
+      "/media/polarize-shot-2.svg",
+      "/media/polarize-shot-3.svg"
+    ],
     "playUrl": "https://sparefireboy.itch.io/polarized",
     "summary": "RU Game Jam 2026 winner — a puzzle game about magnets."
   },

@@ -327,8 +327,67 @@ function renderGif(project) {
   return media;
 }
 
-/** Pick the right media renderer. YouTube links win regardless of isVideo. */
+/**
+ * Image carousel: shows mediaUrl first, then each gallery image. Prev/next
+ * arrows (and clicking the image) cycle through, wrapping at the ends. All
+ * slides are preloaded so swaps are instant. Click/tap based, so it works on
+ * mobile too.
+ */
+function renderGallery(project) {
+  const slides = [project.mediaUrl, ...project.gallery].filter(Boolean);
+  let index = 0;
+
+  // Preload every slide so navigation never shows a blank/loading frame.
+  for (const src of slides) {
+    const pre = new Image();
+    pre.src = src;
+  }
+
+  const img = el('img', {
+    class: 'card-asset card-gallery-img',
+    src: slides[0],
+    alt: `${project.title} — image 1 of ${slides.length}`,
+    decoding: 'async',
+  });
+  const counter = el('span', { class: 'card-gallery-counter' });
+
+  const show = (next) => {
+    index = (next + slides.length) % slides.length;
+    img.src = slides[index];
+    img.alt = `${project.title} — image ${index + 1} of ${slides.length}`;
+    counter.textContent = `${index + 1} / ${slides.length}`;
+  };
+  show(0);
+
+  const prev = el('button', {
+    type: 'button',
+    class: 'card-gallery-arrow card-gallery-prev',
+    'aria-label': 'Previous image',
+    text: '‹',
+  });
+  const nextBtn = el('button', {
+    type: 'button',
+    class: 'card-gallery-arrow card-gallery-next',
+    'aria-label': 'Next image',
+    text: '›',
+  });
+  prev.addEventListener('click', () => show(index - 1));
+  nextBtn.addEventListener('click', () => show(index + 1));
+  img.addEventListener('click', () => show(index + 1));
+
+  return el(
+    'div',
+    { class: 'card-media card-media-gallery', role: 'group', 'aria-label': `${project.title} images` },
+    img,
+    prev,
+    nextBtn,
+    counter,
+  );
+}
+
+/** Pick the right media renderer. A gallery (carousel) wins over single media. */
 function renderMedia(project) {
+  if (Array.isArray(project.gallery) && project.gallery.length) return renderGallery(project);
   const ytId = youTubeId(project.mediaUrl);
   if (ytId) return renderYouTube(project, ytId);
   if (isGif(project.mediaUrl)) return renderGif(project);

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" role="img" aria-label="Polarize screenshot 3 placeholder">
+  <rect width="1280" height="720" fill="#101d45"/>
+  <path d="M200 520 L440 300 L640 460 L860 260 L1080 480" fill="none" stroke="#ff7a18" stroke-width="12"/>
+  <circle cx="640" cy="460" r="16" fill="#ffd400"/>
+  <text x="640" y="150" text-anchor="middle" font-family="system-ui, sans-serif" font-size="64" font-weight="800" fill="#ffd400">Screenshot 3</text>
+  <text x="640" y="610" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" fill="#b9c6ea">gallery placeholder · replace with a real screenshot</text>
+</svg>

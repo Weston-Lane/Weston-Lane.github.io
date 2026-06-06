@@ -66,7 +66,8 @@ A list (`[ … ]`) of project objects. Each project appears on the category page
 | `id` | string | **required** | Unique slug for the project (e.g. `"polarize"`). Internal id; not shown. |
 | `title` | string | **required** | The card's heading. |
 | `categories` | array of strings | **required** | Which page(s) it shows on. Must match `categories` keys: `"gamedev"`, `"techart"`, `"swe"`. **Can list more than one** to show the same project on multiple pages, e.g. `["gamedev", "techart"]`. |
-| `mediaUrl` | string | **required** | The card's thumbnail. Can be an **image** path (`/media/x.svg`), a **YouTube link**, or a **local video** file. See "How media works" below. |
+| `mediaUrl` | string | **required** | The card's thumbnail. Can be an **image** path (`/media/x.svg`), a **YouTube link**, a **GIF**, or a **local video** file. See "How media works" below. |
+| `gallery` | array of strings | optional | Extra image paths. When present, the media becomes a **carousel**: `mediaUrl` is shown first, then each gallery image, with ‹ › arrows + a counter (click the image to advance too). Wraps around. Use image paths (screenshots). |
 | `isVideo` | boolean | optional | Set `true` only for a **local video file** (`.mp4` etc.). Not needed for YouTube — that's auto-detected. Defaults to `false`. |
 | `posterUrl` | string | optional | A still image shown before a video/YouTube plays. For YouTube it falls back to YouTube's own thumbnail if omitted. |
 | `linkUrl` | string | optional | Makes the **thumbnail itself clickable** (opens this URL, greys out on hover). Skipped for YouTube cards (those play on click). |

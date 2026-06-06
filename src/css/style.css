@@ -423,6 +423,56 @@ iframe.card-asset {
   z-index: 3;
 }
 
+/* Image carousel: silver Win98 arrows + LED-style counter over the media. */
+.card-gallery-img {
+  cursor: pointer;
+}
+.card-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 23px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font-family: var(--head);
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1;
+  color: #15295f;
+  background: var(--silver);
+  border: 3px outset var(--silver-hi);
+  cursor: pointer;
+}
+.card-gallery-arrow:hover {
+  background: #d9d9ec;
+}
+.card-gallery-arrow:active {
+  border-style: inset;
+}
+.card-gallery-prev {
+  left: 8px;
+}
+.card-gallery-next {
+  right: 8px;
+}
+.card-gallery-counter {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: var(--yellow);
+  background: #000;
+  border: 2px inset var(--silver-lo);
+  padding: 2px 8px;
+}
+
 /* Clickable media greys out on hover/focus. */
 .card-media-link {
   display: block;
