@@ -71,7 +71,8 @@ function contactList(contacts, className) {
 }
 
 /** The standalone about/contact page that category pages link to. */
-const ABOUT_PAGE = { label: 'About / Contact', href: '/about.html' };
+const ABOUT_PAGE = { label: 'About Me', href: '/about.html' };
+const WORK_EX = { label: 'Work Exp', href: '/about.html' };
 
 /** One nav link per category, derived from site.json (data-driven). */
 function categoryLinks(site) {
@@ -619,9 +620,10 @@ async function init() {
   //  - category pages: link only to the About page — never back to the master
   //    and never to each other (tailored recruiter URLs stay isolated).
   //  - about page: no nav, so it can't link back to the master either.
+  
   let navLinks = [];
-  if (main.dataset.page === 'home') navLinks = [...categoryLinks(site), ABOUT_PAGE];
-  else if (isCategory) navLinks = [ABOUT_PAGE];
+  if (main.dataset.page === 'home') navLinks = [...categoryLinks(site), WORK_EX, ABOUT_PAGE];
+  else if (isCategory) navLinks = [WORK_EX, ABOUT_PAGE];
 
   renderHeader(site, navLinks);
   renderFooter(site);
