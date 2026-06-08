@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Write-up — engineering notes (template)." />
+    <title>Write-up · Weston Lane</title>
+    <link rel="stylesheet" href="/src/css/style.css" />
+  </head>
+  <body>
+    <!-- Shared header/footer are filled by main.js. data-page="static" tells it
+         to leave the <main> below untouched, so this article is plain HTML you
+         author by hand using the .post-* classes. Duplicate this file per post. -->
+    <header class="site-header" data-site-header></header>
+
+    <main class="page" data-page="static">
+      <article class="post">
+        <p class="post-eyebrow">Write-up</p>
+        <h1 class="post-title">How I Built Polarize</h1>
+        <p class="post-meta">A magnet puzzle game · RU Game Jam 2026</p>
+
+        <div class="post-body">
+          <p>
+            This is a template write-up page. Everything in here is plain HTML —
+            edit it freely. It shares the site's theme (fonts, colors, panels)
+            automatically, and the header/footer above are rendered from
+            <code>site.json</code> like every other page.
+          </p>
+
+          <h2>The problem</h2>
+          <p>
+            Describe what you set out to build and the constraint that made it
+            interesting. Keep paragraphs short and readable.
+          </p>
+
+          <h2>The approach</h2>
+          <p>Walk through the implementation. You can drop in code blocks:</p>
+          <pre><code>// snap a body to the nearest magnet pole
+function snapToPole(body, poles) {
+  return poles.reduce((best, p) =>
+    dist(body, p) &lt; dist(body, best) ? p : best);
+}</code></pre>
+
+          <p>…images:</p>
+          <figure class="post-figure">
+            <img src="/media/polarize-shot-1.svg" alt="Screenshot of Polarize" />
+            <figcaption>A screenshot with a caption.</figcaption>
+          </figure>
+
+          <h2>What I'd do differently</h2>
+          <ul>
+            <li>A reflection bullet.</li>
+            <li>Another lesson learned.</li>
+          </ul>
+
+          <p>
+            Want a different layout per post? Just duplicate this file and edit
+            the HTML — no JSON, no build wiring beyond registering the page.
+          </p>
+        </div>
+
+        <p class="post-back"><a href="/pages/gamedev.html">‹ Back to projects</a></p>
+      </article>
+    </main>
+
+    <footer class="site-footer" data-site-footer></footer>
+    <script type="module" src="/src/js/main.js"></script>
+  </body>
+</html>

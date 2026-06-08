@@ -399,6 +399,109 @@ a:hover {
   gap: 6px;
 }
 
+/* ----- Blog / write-up pages (hand-authored HTML, data-page="static") ----- */
+
+.post {
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--panel);
+  color: var(--ink);
+  border: 4px ridge var(--orange);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+  padding: 26px;
+}
+
+.post-eyebrow {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--yellow);
+  margin-bottom: 10px;
+}
+
+.post-title {
+  font-size: clamp(28px, 6vw, 42px);
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 #000;
+}
+
+.post-meta {
+  font-family: var(--mono);
+  font-weight: bold;
+  color: var(--orange);
+  margin-top: 6px;
+}
+
+.post-body {
+  margin-top: 22px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.post-body > * + * {
+  margin-top: 16px;
+}
+
+.post-body h2 {
+  font-size: 24px;
+  color: var(--orange);
+  margin-top: 28px;
+}
+
+.post-body code {
+  font-family: var(--mono);
+  background: #0c1430;
+  padding: 1px 5px;
+}
+
+.post-body pre {
+  font-family: var(--mono);
+  background: #0c1430;
+  border: 2px inset var(--silver-lo);
+  padding: 14px;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.post-body pre code {
+  background: none;
+  padding: 0;
+}
+
+.post-body ul {
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.post-figure {
+  margin: 0;
+}
+
+.post-figure img {
+  width: 100%;
+  display: block;
+  border: 3px ridge var(--yellow);
+}
+
+.post-figure figcaption {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--ink-dim);
+  margin-top: 6px;
+  text-align: center;
+}
+
+.post-back {
+  margin-top: 26px;
+  font-family: var(--mono);
+  font-weight: bold;
+}
+
 /* ----- Projects intro ----------------------------------------------------- */
 
 .projects-intro {
@@ -645,6 +748,11 @@ iframe.card-asset {
 .card-button-secondary {
   background: var(--yellow);
   border-color: #ffe866;
+}
+.card-button-tertiary {
+  background: var(--blue);
+  border-color: #8fb4ff;
+  color: #06010f;
 }
 
 /* ----- Accordion ---------------------------------------------------------- */

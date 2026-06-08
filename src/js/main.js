@@ -72,14 +72,14 @@ function contactList(contacts, className) {
 }
 
 /** The standalone about/contact page that category pages link to. */
-const ABOUT_PAGE = { label: 'About Me', href: '/about.html' };
-const WORK_EX = { label: 'Work Exp', href: '/work.html' };
+const ABOUT_PAGE = { label: 'About Me', href: '/pages/about.html' };
+const WORK_EX = { label: 'Work Exp', href: '/pages/work.html' };
 
 /** One nav link per category, derived from site.json (data-driven). */
 function categoryLinks(site) {
   return Object.entries(site?.categories || {}).map(([key, meta]) => ({
     label: meta.navLabel || meta.title || key,
-    href: `/${key}.html`,
+    href: `/pages/${key}.html`,
   }));
 }
 
@@ -201,7 +201,7 @@ function renderExperience(job) {
 }
 
 /**
- * Work-experience page (work.html). Preliminary résumé-style layout: a heading
+ * Work-experience page (pages/work.html). Preliminary résumé-style layout: a heading
  * plus a vertical list of roles, all driven by site.json's `experience` array.
  */
 function renderWork(main, work) {
@@ -542,6 +542,7 @@ function cardButtons(project) {
   const specs = [
     { label: 'Play', href: project.playUrl, icon: 'play', variant: 'primary' },
     { label: 'Code', href: project.codeUrl, icon: 'code', variant: 'secondary' },
+    { label: 'How I Made It', href: project.blogUrl, icon: 'blog', variant: 'tertiary' },
   ].filter((b) => b.href);
   if (!specs.length) return null;
 
@@ -704,10 +705,13 @@ async function init() {
     wireYouTube(main);
   } else if (isWork) {
     renderWork(main, work);
+  } else if (page === 'static') {
+    // Static page (e.g. a blog write-up): the <main> content is authored in
+    // plain HTML. We only render the shared header/footer above — leave it be.
   } else {
     // Master index and about page share this layout but use different bio copy:
     // the index uses site.intro (falling back to site.about), about uses site.about.
-    const paragraphs = main.dataset.page === 'home' ? site?.intro || site?.about : site?.about;
+    const paragraphs = page === 'home' ? site?.intro || site?.about : site?.about;
     renderAbout(main, site, paragraphs);
   }
 }

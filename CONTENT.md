@@ -20,7 +20,7 @@ A field marked **optional** can be left out entirely — the site hides anything
 | `marquee` | string | optional | The scrolling text strip in the banner. Keep it one line; end with a few spaces for a gap before it loops. Omit to hide the marquee. |
 | `photo` | string | optional | Path to your portrait image (e.g. `/media/portrait.svg`). Floats beside your bio; text wraps around it. Omit to hide the photo. |
 | `intro` | array of strings | optional | Bio text shown on the **index** (landing) page. **Each string is its own paragraph.** Falls back to `about` if omitted. |
-| `about` | array of strings | optional | Bio text shown on the standalone **about** page (`about.html`). **Each string is its own paragraph.** |
+| `about` | array of strings | optional | Bio text shown on the standalone **about** page (`pages/about.html`). **Each string is its own paragraph.** |
 | `contacts` | array of objects | optional | The contact buttons in the header + about page. See below. |
 | `categories` | object | **required** | Defines your category pages (gamedev / techart / swe). See below. |
 
@@ -37,7 +37,7 @@ A field marked **optional** can be left out entirely — the site hides anything
 
 ### `categories` — the category pages
 
-An object keyed by the page id. The three keys (`gamedev`, `techart`, `swe`) correspond to `gamedev.html`, `techart.html`, `swe.html`.
+An object keyed by the page id. Each key maps to a category page under `pages/` (e.g. `gamedev` → `pages/gamedev.html`).
 
 ```json
 "categories": {
@@ -75,6 +75,7 @@ A list (`[ … ]`) of project objects. Each project appears on the category page
 | `linkUrl` | string | optional | Makes the **thumbnail itself clickable** (opens this URL, greys out on hover). Skipped for YouTube cards (those play on click). |
 | `playUrl` | string | optional | Adds a solid **"▶ Play"** button (link to the hosted/playable build, e.g. its itch.io page). |
 | `codeUrl` | string | optional | Adds an outlined **"</> Code"** button (link to the source repo). |
+| `blogUrl` | string | optional | Adds a **"Write-up"** button. Point it at a YouTube video, an external blog, or an on-site write-up page (e.g. `/pages/blog/my-post.html`). See "Write-up pages" below. |
 | `groupSize` | string | optional | Fills the **"Group Size"** dropdown. Hidden if omitted. |
 | `contributions` | string | optional | Fills the **"My Contributions"** dropdown. Hidden if omitted. |
 | `summary` | string | optional | Fills the **"Summary"** dropdown. Hidden if omitted. |
@@ -94,7 +95,7 @@ A list (`[ … ]`) of project objects. Each project appears on the category page
 
 ## `src/data/work.json`
 
-A list (`[ … ]`) of work-experience entries shown on **work.html**, newest first.
+A list (`[ … ]`) of work-experience entries shown on **pages/work.html**, newest first.
 
 | Field | Type | Required? | What it does |
 |-------|------|-----------|--------------|
@@ -151,6 +152,17 @@ A list (`[ … ]`) of work-experience entries shown on **work.html**, newest fir
 ```
 
 ---
+
+## Write-up pages (the "Write-up" button)
+
+The `blogUrl` field just points somewhere — it can be a **YouTube link**, an **external blog**, or an **on-site page** you write by hand. To make an on-site write-up:
+
+1. **Copy `pages/blog/test.html`** to a new file in the same folder, e.g. `pages/blog/polarize-writeup.html`. It's the template — a plain-HTML article that reuses the site theme and the shared header/footer.
+2. **Edit the article** inside `<main class="page" data-page="static">`. Use the `.post-*` classes (`post-title`, `post-meta`, `post-body`, `post-figure`, `post-back`) — write normal HTML: `<p>`, `<h2>`, `<ul>`, `<pre><code>`, `<img>`. `data-page="static"` tells the JS to fill the header/footer but **leave your article alone**.
+3. **Register the page** in `vite.config.js` → `rollupOptions.input` (add a line like `writeup: resolve(__dirname, 'pages/blog/polarize-writeup.html')`), or it won't be in the production build.
+4. **Point the project at it:** set `"blogUrl": "/pages/blog/polarize-writeup.html"` in `projects.json`.
+
+`pages/blog/test.html` is a working example wired to the Polarize card. Images go in `public/media/` like everything else.
 
 ## Where images live
 Put thumbnails/photos in **`public/media/`** and reference them as `/media/filename.ext`. Anything in `public/` is served as-is. Common formats: `.svg`, `.png`, `.jpg`, `.gif`, `.webp`, `.mp4`.

@@ -1,6 +1,6 @@
 [
   {
-    "_comment": "Work-experience entries shown on work.html. Each item needs a 'role'; entries without one (like this note) are skipped. See CONTENT.md for all fields."
+    "_comment": "Work-experience entries shown on pages/work.html. Each item needs a 'role'; entries without one (like this note) are skipped. See CONTENT.md for all fields."
   },
   {
     "role": "Game Developer/Software Engineer",
