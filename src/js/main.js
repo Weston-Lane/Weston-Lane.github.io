@@ -680,15 +680,20 @@ async function init() {
     isWork ? loadJson(workUrl, 'work.json') : Promise.resolve(null),
   ]);
 
-  // Navigation rules:
-  //  - home (master index): links to every section + the standalone About page.
-  //  - category pages: link only to the About page — never back to the master
-  //    and never to each other (tailored recruiter URLs stay isolated).
-  //  - about page: no nav, so it can't link back to the master either.
-  
+  // Navigation rules (no link ever points back to the master index):
+  //  - home / about / work: the full nav — every category + Work Exp + About,
+  //    minus a redundant link to the page you're already on.
+  //  - category pages: just Work Exp + About, so tailored recruiter URLs stay
+  //    isolated from each other.
+  const page = main.dataset.page;
   let navLinks = [];
-  if (main.dataset.page === 'home') navLinks = [...categoryLinks(site), WORK_EX, ABOUT_PAGE];
-  else if (isCategory) navLinks = [WORK_EX, ABOUT_PAGE];
+  if (page === 'home' || page === 'about' || page === 'work') {
+    navLinks = [...categoryLinks(site), WORK_EX, ABOUT_PAGE].filter(
+      (link) => !(page === 'about' && link === ABOUT_PAGE) && !(page === 'work' && link === WORK_EX),
+    );
+  } else if (isCategory) {
+    navLinks = [WORK_EX, ABOUT_PAGE];
+  }
 
   renderHeader(site, navLinks);
   renderFooter(site);
