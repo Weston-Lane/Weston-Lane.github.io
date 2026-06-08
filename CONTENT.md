@@ -1,9 +1,10 @@
 # Content Guide — editing the site
 
-All site content lives in **two JSON files**. Edit them, save, and the dev server refreshes (or run `npm run build` to publish). You never need to touch HTML/JS/CSS for normal content updates.
+All site content lives in **three JSON files**. Edit them, save, and the dev server refreshes (or run `npm run build` to publish). You never need to touch HTML/JS/CSS for normal content updates.
 
 - **`src/data/site.json`** — who you are: name, role, bio, photo, contact links, the category pages.
 - **`src/data/projects.json`** — the list of projects/games shown on the category pages.
+- **`src/data/work.json`** — work-experience entries shown on the work page.
 
 A field marked **optional** can be left out entirely — the site hides anything that's missing (no broken layout, no empty boxes).
 
@@ -18,7 +19,8 @@ A field marked **optional** can be left out entirely — the site hides anything
 | `tagline` | string | optional | One-line hook shown under your name on the index/about pages. |
 | `marquee` | string | optional | The scrolling text strip in the banner. Keep it one line; end with a few spaces for a gap before it loops. Omit to hide the marquee. |
 | `photo` | string | optional | Path to your portrait image (e.g. `/media/portrait.svg`). Floats beside your bio; text wraps around it. Omit to hide the photo. |
-| `about` | array of strings | optional | Your bio. **Each string is its own paragraph.** Shown on the index/about pages. |
+| `intro` | array of strings | optional | Bio text shown on the **index** (landing) page. **Each string is its own paragraph.** Falls back to `about` if omitted. |
+| `about` | array of strings | optional | Bio text shown on the standalone **about** page (`about.html`). **Each string is its own paragraph.** |
 | `contacts` | array of objects | optional | The contact buttons in the header + about page. See below. |
 | `categories` | object | **required** | Defines your category pages (gamedev / techart / swe). See below. |
 
@@ -87,6 +89,34 @@ A list (`[ … ]`) of project objects. Each project appears on the category page
 4. **Anything else** → treated as an image.
 
 `linkUrl`, `playUrl`, and `codeUrl` are all independent of `mediaUrl` — a card can have a playable trailer *and* Play/Code buttons.
+
+---
+
+## `src/data/work.json`
+
+A list (`[ … ]`) of work-experience entries shown on **work.html**, newest first.
+
+| Field | Type | Required? | What it does |
+|-------|------|-----------|--------------|
+| `role` | string | **required** | Job title. Entries **without** a `role` are skipped (that's how the leading `_comment` note is ignored). |
+| `company` | string | optional | Employer name. |
+| `location` | string | optional | e.g. `"Austin, TX"` or `"Remote"`. |
+| `period` | string | optional | Date range, e.g. `"2024 — Present"`. |
+| `summary` | string | optional | One-line description under the title. |
+| `highlights` | array of strings | optional | Bullet points of what you did. |
+
+```json
+[
+  {
+    "role": "Simulation Software Engineer",
+    "company": "Company Name",
+    "location": "City, ST",
+    "period": "2024 — Present",
+    "summary": "What you do here.",
+    "highlights": ["Built X.", "Owned Y."]
+  }
+]
+```
 
 ---
 

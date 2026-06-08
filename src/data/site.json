@@ -1,35 +1,48 @@
 {
   "_comment": "Field reference for this file → see CONTENT.md in the project root. (This _comment key is ignored by the site.)",
   "name": "Weston Lane",
-  "role": "Simulation Software Engineer",
+  "role": "Simulation and Software Engineering",
   "tagline": "I build games, real-time tools, and the systems that hold them together.",
-  "marquee": "✦ WELCOME TO MY CORNER OF THE WEB ✦ BEST VIEWED IN NETSCAPE NAVIGATOR @ 800×600 ✦ SIGN MY GUESTBOOK ✦ THANKS FOR VISITING ✦ ",
+  "marquee": "✦ COMPUTER SCIENTIST ✦ RUTGERS GRAD ✦ COAST GUARD VETERAN ✦ THANKS FOR VISITING ✦",
   "photo": "/media/Deer Selfie.jpg",
+  "intro": [
+    "I'm a multidisciplinary software engineer specializing in simulation experiences. I pursue a better understanding of the intersection of art and software. Mostly familiar with Unity but have delved into personal render engine development and other tools.", 
+    "Previous Avionics Electrical Technician in the United States Coast Guard. I am reliable, ready, and a strong problem solver. Thanks for stopping by!"
+  ],
   "about": [
-    "I'm a multidisciplinary developer working across game development, technical art, and software engineering. I like the messy middle: shipping playable experiences, building the tooling that makes a team faster, and writing the glue code that turns a prototype into a product.",
-    "This page is the short version. If a recruiter sent you a tailored link, you're probably looking for a specific slice of my work — feel free to reach out directly and I'll point you at the rest."
+    "Hi, if you're this deep in the link tree then you must be actually trying to learn more about me.",
+    "Before pursuing my studies I was in the United States Coast Guard. This was a formative experience for me and taught me how to manage my adult life.",
+    "After the Coast Guard I decided to pursue my studies at Rutgers University New Brunswick. I have developed a passion for some niches in software development specifically rendering, simulation, and game development.",
+    "I am a Mentor in the Rutgers Game Development Club, where I teach others how to write clean code, make games, and use Unity.",
+    "Outside of that I love to play guitar (you can see in my photo, yes that is a real deer), play video games, and dabble in cocktail mixology."
   ],
   "contacts": [
-    { "label": "Email", "href": "mailto: weston.r.lane.work@gmail.com", "icon": "mail" },
-    { "label": "GitHub", "href": "https://github.com/Weston-Lane", "icon": "github" },
-    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/weston-lane-509a67230", "icon": "linkedin" },
-    { "label": "itch.io", "href": "https://sparefireboy.itch.io/", "icon": "itch" }
+    {
+      "label": "Email",
+      "href": "mailto: weston.r.lane.work@gmail.com",
+      "icon": "mail"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/Weston-Lane",
+      "icon": "github"
+    },
+    {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/in/weston-lane-509a67230",
+      "icon": "linkedin"
+    },
+    {
+      "label": "itch.io",
+      "href": "https://sparefireboy.itch.io/",
+      "icon": "itch"
+    }
   ],
   "categories": {
     "gamedev": {
-      "title": "Game Development",
-      "navLabel": "Game Dev",
-      "blurb": "Gameplay systems, prototypes, and shipped titles."
-    },
-    "techart": {
-      "title": "Technical Art",
-      "navLabel": "Tech Art",
-      "blurb": "Shaders, tools, and the bridge between art and engineering."
-    },
-    "swe": {
-      "title": "Software Engineering",
-      "navLabel": "Software",
-      "blurb": "Services, tooling, and applications built to last."
+      "title": "My Creations",
+      "navLabel": "Portfolio",
+      "blurb": "Gameplay systems, prototypes, Games, and More!"
     }
   }
 }

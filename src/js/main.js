@@ -13,6 +13,7 @@
 
 import siteUrl from '../data/site.json?url';
 import projectsUrl from '../data/projects.json?url';
+import workUrl from '../data/work.json?url';
 
 /** Fetch + parse JSON, returning null (never throwing) on any failure. */
 async function loadJson(url, label) {
@@ -72,7 +73,7 @@ function contactList(contacts, className) {
 
 /** The standalone about/contact page that category pages link to. */
 const ABOUT_PAGE = { label: 'About Me', href: '/about.html' };
-const WORK_EX = { label: 'Work Exp', href: '/about.html' };
+const WORK_EX = { label: 'Work Exp', href: '/work.html' };
 
 /** One nav link per category, derived from site.json (data-driven). */
 function categoryLinks(site) {
@@ -80,6 +81,15 @@ function categoryLinks(site) {
     label: meta.navLabel || meta.title || key,
     href: `/${key}.html`,
   }));
+}
+
+/** Category page links rendered as buttons (used at the foot of the landing pages). */
+function categoryButtons(site) {
+  const list = el('ul', { class: 'about-contacts about-cats' });
+  for (const link of categoryLinks(site)) {
+    list.append(el('li', {}, el('a', { href: link.href, text: link.label })));
+  }
+  return list;
 }
 
 /** Build the banner nav. An empty list renders nothing (leaf pages). */
@@ -129,8 +139,12 @@ function renderFooter(site) {
   );
 }
 
-/** Landing / about page (index.html). */
-function renderAbout(main, site) {
+/**
+ * Landing (index) / about page. `paragraphs` is the bio text to show — the
+ * index page passes site.intro, the about page passes site.about, so the two
+ * pages can carry different copy while sharing this layout.
+ */
+function renderAbout(main, site, paragraphs) {
   if (!site) {
     main.replaceChildren(errorState('This page could not load.'));
     return;
@@ -155,10 +169,59 @@ function renderAbout(main, site) {
       }),
     );
   }
-  for (const para of site.about || []) body.append(el('p', { text: para }));
+  for (const para of paragraphs || []) body.append(el('p', { text: para }));
   intro.append(body);
-  intro.append(contactList(site.contacts, 'about-contacts'));
+  intro.append(categoryButtons(site));
   main.replaceChildren(intro);
+}
+
+/** One work-experience entry (résumé style). */
+function renderExperience(job) {
+  const item = el('article', { class: 'exp-item' });
+
+  item.append(
+    el(
+      'div',
+      { class: 'exp-head' },
+      el('h2', { class: 'exp-role', text: job.role || 'Role' }),
+      job.period ? el('span', { class: 'exp-period', text: job.period }) : null,
+    ),
+  );
+
+  const meta = [job.company, job.location].filter(Boolean).join('  ·  ');
+  if (meta) item.append(el('p', { class: 'exp-meta', text: meta }));
+  if (job.summary) item.append(el('p', { class: 'exp-summary', text: job.summary }));
+
+  if (Array.isArray(job.highlights) && job.highlights.length) {
+    const list = el('ul', { class: 'exp-highlights' });
+    for (const point of job.highlights) list.append(el('li', { text: point }));
+    item.append(list);
+  }
+  return item;
+}
+
+/**
+ * Work-experience page (work.html). Preliminary résumé-style layout: a heading
+ * plus a vertical list of roles, all driven by site.json's `experience` array.
+ */
+function renderWork(main, work) {
+  const intro = el(
+    'section',
+    { class: 'work-intro' },
+    el('p', { class: 'about-eyebrow', text: 'Résumé' }),
+    el('h1', { class: 'work-title', text: 'Work Experience' }),
+  );
+
+  const list = el('section', { class: 'exp-list' });
+  if (!Array.isArray(work)) {
+    list.append(errorState('Work experience could not be loaded.'));
+  } else {
+    // A 'role' is required, so entries without one (e.g. the _comment note) are skipped.
+    const jobs = work.filter((job) => job && job.role);
+    if (jobs.length === 0) list.append(emptyState('No experience listed yet.'));
+    else for (const job of jobs) list.append(renderExperience(job));
+  }
+  main.replaceChildren(intro, list);
 }
 
 /** Accordion section (Group Size / Contributions / Summary). */
@@ -610,9 +673,11 @@ async function init() {
   if (!main) return;
 
   const isCategory = Boolean(main.dataset.category);
-  const [site, projects] = await Promise.all([
+  const isWork = main.dataset.page === 'work';
+  const [site, projects, work] = await Promise.all([
     loadJson(siteUrl, 'site.json'),
     isCategory ? loadJson(projectsUrl, 'projects.json') : Promise.resolve(null),
+    isWork ? loadJson(workUrl, 'work.json') : Promise.resolve(null),
   ]);
 
   // Navigation rules:
@@ -632,10 +697,13 @@ async function init() {
     renderProjects(main, site, projects);
     wireAccordions(main);
     wireYouTube(main);
+  } else if (isWork) {
+    renderWork(main, work);
   } else {
-    // Both the master index and the standalone about page show the same
-    // identity/contact content; only their nav (above) differs.
-    renderAbout(main, site);
+    // Master index and about page share this layout but use different bio copy:
+    // the index uses site.intro (falling back to site.about), about uses site.about.
+    const paragraphs = main.dataset.page === 'home' ? site?.intro || site?.about : site?.about;
+    renderAbout(main, site, paragraphs);
   }
 }
 

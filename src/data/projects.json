@@ -7,21 +7,41 @@
     "title": "Polarize",
     "categories": ["gamedev"],
     "mediaUrl": "/media/Polarize.gif",
+    "gallery":[
+      "https://www.youtube.com/watch?v=8S0PFJkGj9E"
+    ],
     "isVideo": false,
     "playUrl": "https://sparefireboy.itch.io/polarized",
-    "summary": "RU Game Jam 2026 winner — a puzzle game about magnets."
+    "groupSize":"2",
+    "contributions":"Implemented the extensible magnet physics as a gameplay mechanic, shader work for the texturing, and other gamepay programming",
+    "summary": "RU Game Jam 2026 winner — a puzzle game about magnets. Made with Unity"
+  },
+  {
+    "id": "carnivral",
+    "title": "CarniVRal (Play In Browser!)",
+    "categories": ["gamedev", "swe"],
+    "mediaUrl": "/media/CarniVRal_1.PNG",
+    "gallery": [
+      
+    ],
+    "isVideo": false,
+    "playUrl": "https://weston-lane.github.io/Project2/",
+    "groupSize":"2 (currently mostly solo)",
+    "summary": "VR game made with THREE JS in the browser. Made this as the final project for my VR class. Dodge the incoming projectiles and shoot the targets. See how long you can last!"
   },
   {
     "id": "snow-deformation-shader",
     "title": "Snow Deformation Shader",
-    "categories": ["gamedev"],
+    "categories": ["gamedev", "techart"],
     "mediaUrl": "https://img.itch.zone/aW1hZ2UvMzgwNTY1Ny8yMjY4NzQ0MS5wbmc=/347x500/D7A4Js.png",
     "gallery": [
       "https://img.itch.zone/aW1hZ2UvMzgwNTY1Ny8yMjczMTI2My5naWY=/original/037siE.gif",
       "https://img.itch.zone/aW1hZ2UvMzgwNTY1Ny8yMjY4NzQ0Mi5wbmc=/347x500/yN73lc.png"
     ],
     "isVideo": false,
-    "playUrl": "https://sparefireboy.itch.io/snow-deformation-shader"
+    "playUrl": "https://sparefireboy.itch.io/snow-deformation-shader",
+    "groupSize":"Solo Project",
+    "summary": "Snow deformation shader for realistic snow removal upon movement."
   },
   {
     "id": "ray-casting-engine",
@@ -29,10 +49,14 @@
     "categories": ["gamedev"],
     "mediaUrl": "https://www.youtube.com/embed/sJd-7OEzEx0?start=160",
     "gallery": [
-      "https://img.itch.zone/aW1hZ2UvMzgzNTY4My8yMjg3NDgzOS5naWY=/original/tQ%2FQYe.gif"
+      "https://img.itch.zone/aW1hZ2UvMzgzNTY4My8yMjg3NDgzOS5naWY=/original/tQ%2FQYe.gif",
+      "https://img.itch.zone/aW1nLzIyODc0Nzc2LnBuZw==/315x250%23c/znqIr%2B.png"
     ],
     "isVideo": false,
-    "playUrl": "https://sparefireboy.itch.io/ray-casting-engine"
+    "playUrl": "https://sparefireboy.itch.io/ray-casting-engine",
+    "codeUrl":"https://github.com/Weston-Lane/RayCaster",
+    "groupSize":"Solo Project",
+    "summary": "Wolfenstein style raycast rendering engine. Made using OpenGL and C++."
   },
   {
     "id": "furniture-dash",
@@ -46,37 +70,17 @@
     ],
     "isVideo": false,
     "playUrl": "https://sparefireboy.itch.io/furniture-dash",
-    "summary": "Made for RU Game Jam 2025."
+    "groupSize": "Solo Project",
+    "summary": "Made for RU Game Jam 2025 — Kick around furniture to find your clothes before you are late to work! Made with Unity"
   },
   {
     "id": "chicken-run",
-    "title": "Chicken Run",
+    "title": "Chicken Run (Play In Browser!)",
     "categories": ["gamedev"],
     "mediaUrl": "/media/chicken-run.svg",
     "isVideo": false,
-    "playUrl": "https://sparefireboy.itch.io/chicken-run"
-  },
-  {
-    "id": "shader-toolkit",
-    "title": "Procedural Shader Toolkit",
-    "categories": ["techart"],
-    "mediaUrl": "/media/shader-toolkit.svg",
-    "isVideo": false,
-    "linkUrl": "https://github.com/your-handle/shader-toolkit",
-    "codeUrl": "https://github.com/your-handle/shader-toolkit",
-    "groupSize": "Solo project.",
-    "contributions": "Designed a node-based authoring layer over raw shader graphs, wrote 30+ reusable function nodes, and built live hot-reload previews so artists iterate without recompiling.",
-    "summary": "An artist-facing toolkit for authoring procedural materials without touching shader code. Cut the team's material-iteration time roughly in half during production."
-  },
-  {
-    "id": "analytics-dashboard",
-    "title": "Realtime Analytics Dashboard",
-    "categories": ["swe"],
-    "mediaUrl": "/media/analytics-dashboard.svg",
-    "isVideo": false,
-    "linkUrl": "https://your-handle.itch.io/analytics-dashboard",
-    "groupSize": "Team of 3 engineers.",
-    "contributions": "Owned the streaming ingest pipeline and the WebSocket layer, designed the time-series aggregation schema, and built the front-end charting components from scratch.",
-    "summary": "A live dashboard that ingests event streams and renders sub-second updates across thousands of concurrent sessions. Built to stay responsive under spiky, real-world load."
+    "playUrl": "https://sparefireboy.itch.io/chicken-run",
+    "groupSize": "Solo Project",
+    "summary": "Snake like game but you have to dodge incoming attacks while collecting food and dodging your own tail (baby chicks in this case)"
   }
 ]

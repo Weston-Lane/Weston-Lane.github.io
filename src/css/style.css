@@ -332,6 +332,73 @@ a:hover {
   border-style: inset;
 }
 
+/* ----- Work experience page (preliminary layout) -------------------------- */
+
+.work-intro {
+  text-align: center;
+  margin: 4px auto 30px;
+}
+
+.work-title {
+  font-size: clamp(28px, 6vw, 42px);
+}
+
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.exp-item {
+  background: var(--panel);
+  color: var(--ink);
+  border: 4px ridge var(--orange);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+
+.exp-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 14px;
+}
+
+.exp-role {
+  font-size: 22px;
+  color: var(--yellow);
+  text-shadow: 2px 2px 0 #000;
+}
+
+.exp-period {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--ink-dim);
+}
+
+.exp-meta {
+  font-family: var(--mono);
+  font-weight: bold;
+  color: var(--orange);
+  margin-top: 4px;
+}
+
+.exp-summary {
+  margin-top: 10px;
+}
+
+.exp-highlights {
+  margin: 12px 0 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 /* ----- Projects intro ----------------------------------------------------- */
 
 .projects-intro {

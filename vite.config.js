@@ -13,6 +13,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         about: resolve(__dirname, 'about.html'),
+        work: resolve(__dirname, 'work.html'),
         gamedev: resolve(__dirname, 'gamedev.html'),
         techart: resolve(__dirname, 'techart.html'),
         swe: resolve(__dirname, 'swe.html'),

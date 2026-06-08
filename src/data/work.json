@@ -1,0 +1,27 @@
+[
+  {
+    "_comment": "Work-experience entries shown on work.html. Each item needs a 'role'; entries without one (like this note) are skipped. See CONTENT.md for all fields."
+  },
+  {
+    "role": "Gameplay Software Engineer",
+    "company": "America's Amazing Teens",
+    "location": "Remote",
+    "period": "2026 — Present",
+    "summary": "Collaborated with artists and other creators to make an educational game with Unity. As the software engineer of the project, I led the design of the game, code base architecture, and implementation"
+
+  },
+  {
+    "role": "Unity Mentor",
+    "company": "Rutgers University Game Development Club",
+    "location": "City, ST",
+    "period": "2024 — Present",
+    "summary": "Mentored club members in the fundementals of C# object oriented programming and use of the Unity game engine"
+  },
+  {
+    "role": "Avionics Electrical Technician",
+    "company": "United States Coast Guard",
+    "location": "Various Locations",
+    "period": "2017 — 2023",
+    "summary": "Was responsible for the maintenance of electrical components, training of junior members, soldering wired components, reading wiring diagrams of aircraft systems, troubleshooting aircraft discrepancies, operating the in flight radar, updating cryptographic codes for the in flight radio, and routine logging of aircraft maintenance in the Coast Guard wide maintenance log"
+  }
+]
