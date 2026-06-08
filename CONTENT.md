@@ -145,6 +145,7 @@ A list (`[ … ]`) of work-experience entries shown on **pages/work.html**, newe
   "linkUrl": "https://sparefireboy.itch.io/polarized",
   "playUrl": "https://sparefireboy.itch.io/polarized",
   "codeUrl": "https://github.com/Weston-Lane/polarize",
+  "blogUrl": "https://weston-lane.github.io/pages/blog/test.html",
   "groupSize": "Team of 4.",
   "contributions": "Designed the magnet physics and level flow.",
   "summary": "RU Game Jam 2026 winner — a puzzle game about magnets."

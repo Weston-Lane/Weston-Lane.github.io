@@ -542,7 +542,7 @@ function cardButtons(project) {
   const specs = [
     { label: 'Play', href: project.playUrl, icon: 'play', variant: 'primary' },
     { label: 'Code', href: project.codeUrl, icon: 'code', variant: 'secondary' },
-    { label: 'How I Made It', href: project.blogUrl, icon: 'blog', variant: 'tertiary' },
+    { label: 'How It Was Made', href: project.blogUrl, icon: 'blog', variant: 'tertiary' },
   ].filter((b) => b.href);
   if (!specs.length) return null;
 
