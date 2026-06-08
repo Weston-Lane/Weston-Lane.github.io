@@ -12,7 +12,7 @@
     ],
     "isVideo": false,
     "playUrl": "https://sparefireboy.itch.io/polarized",
-    "blogUrl": "/pages/blog/test.html",
+    
     "groupSize":"2",
     "contributions":"Implemented the extensible magnet physics as a gameplay mechanic, shader work for the texturing, and other gamepay programming",
     "summary": "RU Game Jam 2026 winner — a puzzle game about magnets. Made with Unity"
