@@ -3,7 +3,7 @@
     "_comment": "Work-experience entries shown on work.html. Each item needs a 'role'; entries without one (like this note) are skipped. See CONTENT.md for all fields."
   },
   {
-    "role": "Gameplay Software Engineer",
+    "role": "Game Developer/Software Engineer",
     "company": "America's Amazing Teens Foundation",
     "location": "Remote",
     "period": "2026 — Present",
