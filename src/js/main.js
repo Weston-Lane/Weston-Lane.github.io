@@ -14,6 +14,7 @@
 import siteUrl from '../data/site.json?url';
 import projectsUrl from '../data/projects.json?url';
 import workUrl from '../data/work.json?url';
+import { InitBackground } from './background.js'
 
 /** Fetch + parse JSON, returning null (never throwing) on any failure. */
 async function loadJson(url, label) {
@@ -714,6 +715,8 @@ async function init() {
     const paragraphs = page === 'home' ? site?.intro || site?.about : site?.about;
     renderAbout(main, site, paragraphs);
   }
+
+  InitBackground();
 }
 
 if (document.readyState === 'loading') {
@@ -721,3 +724,5 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
+
