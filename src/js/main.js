@@ -716,7 +716,7 @@ async function init() {
     renderAbout(main, site, paragraphs);
   }
 
-  InitBackground();
+  //InitBackground();
 }
 
 if (document.readyState === 'loading') {
