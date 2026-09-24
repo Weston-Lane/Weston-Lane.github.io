@@ -7,8 +7,8 @@
     "company": "America's Amazing Teens Foundation",
     "location": "Remote",
     "period": "2026 — Present",
-    "summary": "Collaborated with artists and other creators to make an educational game with Unity. As the software engineer of the project, I led the design of the game, code base architecture, and implementation"
-
+    "summary": ["Collaborated with artists and other creators to make an educational game with Unity. As a game developer/software engineer", 
+                " I aided in the design of the game, code base architecture, and gameplay systems engineering."]
   },
   {
     "role": "Unity Mentor",

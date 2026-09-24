@@ -15,7 +15,22 @@
     
     "groupSize":"2",
     "contributions":"Implemented the extensible magnet physics as a gameplay mechanic, shader work for the texturing, and other gamepay programming",
-    "summary": "RU Game Jam 2026 winner — a puzzle game about magnets. Made with Unity"
+    "summary": "RU Game Jam Spring 2026 winner — a puzzle game about magnets. Made with Unity"
+  },
+    {
+    "id": "Ukenagasu",
+    "title": "Ukenagasu",
+    "categories": ["gamedev"],
+    "mediaUrl": "https://img.itch.zone/aW1nLzMwMTM1MDEyLmdpZg==/original/bI9gwA.gif",
+    "gallery":[
+      "https://youtu.be/4vDoJ9llpqA?si=LnzXKVLI-rIaZxK9&t=86"
+    ],
+    "isVideo": false,
+    "playUrl": "https://sparefireboy.itch.io/ukenagasu",
+    
+    "groupSize":"3",
+    "contributions":"Gameplay systems engineer. Designed and implemented timed parries, enemey AI and attck logic",
+    "summary": "RU Game Jam Fall 2026 winner — Bounce enemies off the edge with well timed attack parries"
   },
   {
     "id": "carnivral",
